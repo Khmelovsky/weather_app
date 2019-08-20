@@ -1,4 +1,4 @@
-const key = 'uPkAJMpp0Sdvv3Pjb6CWYAIR7aaaht28';
+const key = 'cp1ldMJA62UcvwfzyEc8Q1Z70aRVTGWg';
 
 // get weather information
 const getWeather = async (id) => {
@@ -10,7 +10,7 @@ const getWeather = async (id) => {
 
     const data = await response.json();
 
-    return data;
+    return data[0];
 
 };
 
@@ -31,6 +31,6 @@ getCity('Mukachevo')
     .then(data => {
       return getWeather(data.Key);
     })
-    .then(data => console.log(data))
+    .then(data => console.log('Api responded'))
     .catch(err => console.log(err));
 
