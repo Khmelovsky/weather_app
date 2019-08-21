@@ -27,10 +27,10 @@ const getCity = async (city) => {
     return data[0];
 };
 
-getCity('Mukachevo')
+/*getCity('Mukachevo')
     .then(data => {
       return getWeather(data.Key);
     })
     .then(data => console.log('Api responded'))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err)); */
 
