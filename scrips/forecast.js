@@ -1,36 +1,27 @@
-const key = 'cp1ldMJA62UcvwfzyEc8Q1Z70aRVTGWg';
-
-// get weather information
-const getWeather = async (id) => {
-
-    const base = 'http://dataservice.accuweather.com/currentconditions/v1/';
-    const query = `${id}?apikey=${key}`;
-
-    const response = await fetch(base + query);
-
-    const data = await response.json();
-
-    return data[0];
-
+class Forecast {
+    constructor() {
+        this.key = 'cp1ldMJA62UcvwfzyEc8Q1Z70aRVTGWg';
+        this.cityURI = 'http://dataservice.accuweather.com/locations/v1/cities/search';
+        this.weatherURI = 'http://dataservice.accuweather.com/currentconditions/v1/';
+    }
+    // update city
+    async updateCity (city) {
+        const cityDetials = await this.getCity(city);
+        const weather = await this.getWeather(cityDetials.Key);
+        return { cityDetials, weather };
+    }
+    // get city information
+     async getCity (city) {
+        const query = `?apikey=${this.key}&q=${city}`;
+        const response = await fetch(this.cityURI + query);
+        const data = await response.json();
+        return data[0];
+    }
+    // get weather information
+     async getWeather (id) {
+        const query = `${id}?apikey=${this.key}`;
+        const response = await fetch(this.weatherURI + query);
+        const data = await response.json();
+        return data[0];
+    }
 };
-
-// get city information
-const getCity = async (city) => {
-
-    const base = 'http://dataservice.accuweather.com/locations/v1/cities/search';
-    const query = `?apikey=${key}&q=${city}`;
-
-    const response = await fetch(base + query);
-
-    const data = await response.json();
-
-    return data[0];
-};
-
-/*getCity('Mukachevo')
-    .then(data => {
-      return getWeather(data.Key);
-    })
-    .then(data => console.log('Api responded'))
-    .catch(err => console.log(err)); */
-
